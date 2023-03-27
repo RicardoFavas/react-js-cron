@@ -32,7 +32,7 @@ export default {
 }
 
 export function Demo() {
-  const defaultValue = '30 5 * * 1,6'
+  const defaultValue = '0 30 5 * * 1,6'
   const [values, dispatchValues] = useCronReducer(defaultValue)
   const [error, onError] = useState<CronError>()
 
@@ -127,6 +127,7 @@ export function DynamicSettings() {
     'week-days',
     'hours',
     'minutes',
+    'seconds'
   ]
   const [allowedDropdowns, setAllowedDropdowns] = useState<CronType[]>(
     defaultAllowedDropdowns
@@ -138,6 +139,7 @@ export function DynamicSettings() {
     'day',
     'hour',
     'minute',
+    'second',
     'reboot',
   ]
   const [allowedPeriods, setAllowedPeriods] = useState<PeriodType[]>(
@@ -371,6 +373,7 @@ export function DynamicSettings() {
             <Radio.Button value='day'>Day</Radio.Button>
             <Radio.Button value='hour'>Hour</Radio.Button>
             <Radio.Button value='minute'>Minute</Radio.Button>
+            <Radio.Button value='second'>Second</Radio.Button>
             <Radio.Button value='reboot'>Reboot</Radio.Button>
           </Radio.Group>
         </Form.Item>
@@ -1554,7 +1557,7 @@ export function RestrictPeriodAndSelection() {
         value={value}
         setValue={setValue}
         allowedDropdowns={['period', 'months', 'month-days', 'week-days']}
-        allowedPeriods={['year', 'month', 'week', 'minute']}
+        allowedPeriods={['year', 'month', 'week', 'minute', 'second']}
       />
 
       <div>
@@ -1779,6 +1782,7 @@ export function CustomStyle() {
           <li>.my-project-cron-clear-button</li>
           <li>.my-project-cron-field</li>
           <li>.my-project-cron-period</li>
+          <li>.my-project-cron-seconds</li>
           <li>.my-project-cron-minutes</li>
           <li>.my-project-cron-hours</li>
           <li>.my-project-cron-months</li>
@@ -1787,6 +1791,7 @@ export function CustomStyle() {
           <li>.my-project-cron-select</li>
           <li>.my-project-cron-select-dropdown</li>
           <li>.my-project-cron-select-dropdown-period</li>
+          <li>.my-project-cron-select-dropdown-seconds</li>
           <li>.my-project-cron-select-dropdown-minutes</li>
           <li>.my-project-cron-select-dropdown-hours</li>
           <li>.my-project-cron-select-dropdown-months</li>

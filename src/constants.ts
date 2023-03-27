@@ -32,6 +32,12 @@ export const SUPPORTED_SHORTCUTS: ShortcutsValues[] = [
 ]
 export const UNITS: Unit[] = [
   {
+    type: 'seconds',
+    min: 0,
+    max: 59,
+    total: 60,
+  },
+  {
     type: 'minutes',
     min: 0,
     max: 59,

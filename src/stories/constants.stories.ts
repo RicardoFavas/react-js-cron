@@ -14,6 +14,7 @@ export const FRENCH_LOCALE = {
   dayOption: 'jour',
   hourOption: 'heure',
   minuteOption: 'minute',
+  secondOption: 'second',
   rebootOption: 'redémarrage',
   prefixPeriod: 'Chaque',
   prefixMonths: 'en',
@@ -23,7 +24,9 @@ export const FRENCH_LOCALE = {
   prefixHours: 'à',
   prefixMinutes: ':',
   prefixMinutesForHourPeriod: 'à',
+  prefixSecondsForMinutePedior: 'à',
   suffixMinutesForHourPeriod: 'minute(s)',
+  suffixSecondsForMinutePeriod: 'second(s)',
   errorInvalidCron: 'Expression cron invalide',
   clearButtonText: 'Effacer',
   // Order is important, the index will be used as value
@@ -97,5 +100,7 @@ export const NO_PREFIX_SUFFIX_LOCALE = {
   prefixHours: '',
   prefixMinutes: '',
   prefixMinutesForHourPeriod: '',
+  prefixSecondsForMinutePeriod: '',
   suffixMinutesForHourPeriod: '',
+  suffixSecondsForMinutePeriod: '',
 }

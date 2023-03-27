@@ -177,13 +177,16 @@ export interface Locale {
   emptyWeekDaysShort?: string
   emptyHours?: string
   emptyMinutes?: string
+  emptySeconds?: string
   emptyMinutesForHourPeriod?: string
+  emptySecondsForMinutePeriod?: string
   yearOption?: string
   monthOption?: string
   weekOption?: string
   dayOption?: string
   hourOption?: string
   minuteOption?: string
+  secondOption?: string
   rebootOption?: string
   prefixPeriod?: string
   prefixMonths?: string
@@ -192,8 +195,11 @@ export interface Locale {
   prefixWeekDaysForMonthAndYearPeriod?: string
   prefixHours?: string
   prefixMinutes?: string
+  prefixSecond?: string
   prefixMinutesForHourPeriod?: string
+  prefixSecondsForMinutePeriod?: string
   suffixMinutesForHourPeriod?: string
+  suffixSecondsForMinutePeriod?: string
   errorInvalidCron?: string
   clearButtonText?: string
   weekDays?: string[]
@@ -229,6 +235,7 @@ export type PeriodType =
   | 'day'
   | 'hour'
   | 'minute'
+  | 'second'
   | 'reboot'
 export type AllowEmpty = 'always' | 'never' | 'for-default-value'
 export type CronType =
@@ -238,7 +245,8 @@ export type CronType =
   | 'week-days'
   | 'hours'
   | 'minutes'
-export type LeadingZeroType = 'month-days' | 'hours' | 'minutes'
+  | 'seconds'
+export type LeadingZeroType = 'month-days' | 'hours' | 'minutes' | 'seconds'
 export type LeadingZero = boolean | LeadingZeroType[]
 export type ClockFormat = '24-hour-clock' | '12-hour-clock'
 export type ShortcutsType =
@@ -295,6 +303,10 @@ export interface MinutesProps extends FieldProps {
   leadingZero: LeadingZero
   clockFormat?: ClockFormat
 }
+export interface SecondsProps extends FieldProps {
+  leadingZero: LeadingZero
+  clockFormat?: ClockFormat
+}
 export interface CustomSelectProps
   extends Omit<
     SelectProps<any>,
@@ -343,13 +355,16 @@ export interface DefaultLocale {
   emptyWeekDaysShort: string
   emptyHours: string
   emptyMinutes: string
+  emptySeconds: string
   emptyMinutesForHourPeriod: string
+  emptySecondsForMinutePeriod: string
   yearOption: string
   monthOption: string
   weekOption: string
   dayOption: string
   hourOption: string
   minuteOption: string
+  secondOption: string
   rebootOption: string
   prefixPeriod: string
   prefixMonths: string
@@ -358,8 +373,11 @@ export interface DefaultLocale {
   prefixWeekDaysForMonthAndYearPeriod: string
   prefixHours: string
   prefixMinutes: string
+  prefixSeconds: string
   prefixMinutesForHourPeriod: string
+  prefixSecondsForMinutePeriod: string
   suffixMinutesForHourPeriod: string
+  suffixSecondsForMinutePeriod: string
   errorInvalidCron: string
   clearButtonText: string
   weekDays: string[]

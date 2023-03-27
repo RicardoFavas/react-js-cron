@@ -229,12 +229,11 @@ export default function CustomSelect(props: CustomSelectProps) {
         [`react-js-cron-select-dropdown-${unit.type}`]: true,
         'react-js-cron-custom-select-dropdown': true,
         [`react-js-cron-custom-select-dropdown-${unit.type}`]: true,
-        [`react-js-cron-custom-select-dropdown-minutes-large`]:
-          unit.type === 'minutes' && period !== 'hour' && period !== 'day',
-        [`react-js-cron-custom-select-dropdown-minutes-medium`]:
-          unit.type === 'minutes' && (period === 'day' || period === 'hour'),
-        'react-js-cron-custom-select-dropdown-hours-twelve-hour-clock':
-          unit.type === 'hours' && clockFormat === '12-hour-clock',
+        [`react-js-cron-custom-select-dropdown-minutes-large`]: unit.type === 'minutes' && period !== 'hour' && period !== 'day',
+        [`react-js-cron-custom-select-dropdown-minutes-medium`]: unit.type === 'minutes' && (period === 'day' || period === 'hour'),
+        [`react-js-cron-custom-select-dropdown-seconds-large`]: unit.type === 'seconds' && period !== 'minute' && period !== 'hour',
+        [`react-js-cron-custom-select-dropdown-seconds-medium`]: unit.type === 'seconds' && (period === 'hour' || period === 'minute'),
+        'react-js-cron-custom-select-dropdown-hours-twelve-hour-clock': unit.type === 'hours' && clockFormat === '12-hour-clock',
         'react-js-cron-custom-select-dropdown-grid': !!grid,
         [`${className}-select-dropdown`]: !!className,
         [`${className}-select-dropdown-${unit.type}`]: !!className,
@@ -267,7 +266,7 @@ export default function CustomSelect(props: CustomSelectProps) {
       onDeselect={onOptionClick}
       disabled={disabled}
       dropdownAlign={
-        (unit.type === 'minutes' || unit.type === 'hours') &&
+        (unit.type === 'seconds' || unit.type === 'minutes' || unit.type === 'hours') &&
         period !== 'day' &&
         period !== 'hour'
           ? {

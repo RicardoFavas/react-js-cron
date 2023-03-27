@@ -39,6 +39,9 @@ describe('Cron update value test suite', () => {
       expect(screen.getByTestId('custom-select-minutes').textContent).toContain(
         'every minute'
       )
+      expect(screen.getByTestId('custom-select-seconds').textContent).toContain(
+        'every second'
+      )
     })
   })
 

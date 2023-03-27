@@ -36,6 +36,7 @@ describe('Cron defaultValue test suite', () => {
     weekDaysSelect: string | undefined
     hoursSelect: string | undefined
     minutesSelect: string | undefined
+    secondsSelect: string | undefined
     error?: CronError
   }[] = [
     {
@@ -47,6 +48,7 @@ describe('Cron defaultValue test suite', () => {
       weekDaysSelect: undefined,
       hoursSelect: undefined,
       minutesSelect: undefined,
+      secondsSelect: undefined,
     },
     {
       title: 'each monday',
@@ -57,6 +59,7 @@ describe('Cron defaultValue test suite', () => {
       weekDaysSelect: 'MON',
       hoursSelect: 'every hour',
       minutesSelect: 'every minute',
+      secondsSelect: 'every second',
     },
     {
       title: 'every 2 hours',
@@ -67,6 +70,7 @@ describe('Cron defaultValue test suite', () => {
       weekDaysSelect: undefined,
       hoursSelect: 'every 2',
       minutesSelect: 'every minute',
+      secondsSelect: 'every second',
     },
     {
       title: 'valid cron values with simple range definition',
@@ -77,6 +81,7 @@ describe('Cron defaultValue test suite', () => {
       weekDaysSelect: 'every 2',
       hoursSelect: '1',
       minutesSelect: '0',
+      secondsSelect: '0',
     },
     {
       title: 'multiple minutes',
@@ -87,6 +92,7 @@ describe('Cron defaultValue test suite', () => {
       weekDaysSelect: undefined,
       hoursSelect: undefined,
       minutesSelect: '2,5,9,13,22',
+      secondsSelect: '2,5,9,13,22',
     },
     {
       title: 'a minute and an hour',
@@ -97,6 +103,7 @@ describe('Cron defaultValue test suite', () => {
       weekDaysSelect: undefined,
       hoursSelect: '7',
       minutesSelect: '2',
+      secondsSelect: '2',
     },
     {
       title: 'humanized value is allowed by default',
@@ -108,6 +115,7 @@ describe('Cron defaultValue test suite', () => {
       weekDaysSelect: 'SUN',
       hoursSelect: 'every hour',
       minutesSelect: 'every minute',
+      secondsSelect: 'every second',
     },
     {
       title: 'humanizeValue at false convert humanized value in cron',
@@ -120,6 +128,7 @@ describe('Cron defaultValue test suite', () => {
       weekDaysSelect: 'MON-WED,SAT',
       hoursSelect: 'every hour',
       minutesSelect: 'every minute',
+      secondsSelect: 'every second',
     },
     {
       title: 'humanizeValue at true keep humanized value in cron',
@@ -132,6 +141,7 @@ describe('Cron defaultValue test suite', () => {
       weekDaysSelect: 'MON-WED,SAT',
       hoursSelect: 'every hour',
       minutesSelect: 'every minute',
+      secondsSelect: 'every second',
     },
     {
       title: 'humanized labels is allowed',
@@ -144,6 +154,7 @@ describe('Cron defaultValue test suite', () => {
       weekDaysSelect: 'MON-WED,SAT',
       hoursSelect: 'every hour',
       minutesSelect: 'every minute',
+      secondsSelect: 'every second',
     },
     {
       title: 'humanized labels is not allowed',
@@ -156,6 +167,7 @@ describe('Cron defaultValue test suite', () => {
       weekDaysSelect: '1-3,6',
       hoursSelect: 'every hour',
       minutesSelect: 'every minute',
+      secondsSelect: 'every second',
     },
     {
       title: 'leading zero is added when props is true',
@@ -167,6 +179,7 @@ describe('Cron defaultValue test suite', () => {
       weekDaysSelect: 'day of the week',
       hoursSelect: '03,18',
       minutesSelect: '01',
+      secondsSelect: '01',
     },
     {
       title: 'leading zero is added only for hours',
@@ -178,6 +191,7 @@ describe('Cron defaultValue test suite', () => {
       weekDaysSelect: 'day of the week',
       hoursSelect: '03,18',
       minutesSelect: '1',
+      secondsSelect: '1',
     },
     {
       title:
@@ -190,6 +204,7 @@ describe('Cron defaultValue test suite', () => {
       weekDaysSelect: 'day of the week',
       hoursSelect: '03,18',
       minutesSelect: '01',
+      secondsSelect: '01',
     },
     {
       title: 'AM and PM displayed with clock format 12 hours',
@@ -201,6 +216,7 @@ describe('Cron defaultValue test suite', () => {
       weekDaysSelect: 'day of the week',
       hoursSelect: '3AM,6PM',
       minutesSelect: '1',
+      secondsSelect: '1',
     },
     {
       title: 'leading zero with AM and PM displayed with clock format 12 hours',
@@ -213,6 +229,7 @@ describe('Cron defaultValue test suite', () => {
       weekDaysSelect: 'day of the week',
       hoursSelect: '03AM,06PM',
       minutesSelect: '01',
+      secondsSelect: '01',
     },
     {
       title: 'that default period can be override when default value is empty',
@@ -224,6 +241,7 @@ describe('Cron defaultValue test suite', () => {
       weekDaysSelect: 'every day of the week',
       hoursSelect: 'every hour',
       minutesSelect: 'every minute',
+      secondsSelect: 'every second',
     },
     {
       title: 'that default period is ignored when default value is not empty',
@@ -235,6 +253,7 @@ describe('Cron defaultValue test suite', () => {
       weekDaysSelect: undefined,
       hoursSelect: undefined,
       minutesSelect: undefined,
+      secondsSelect: undefined,
     },
     {
       title:
@@ -246,6 +265,7 @@ describe('Cron defaultValue test suite', () => {
       weekDaysSelect: undefined,
       hoursSelect: 'every hour',
       minutesSelect: 'every minute',
+      secondsSelect: undefined,
     },
     {
       title:
@@ -258,6 +278,7 @@ describe('Cron defaultValue test suite', () => {
       weekDaysSelect: undefined,
       hoursSelect: 'every hour',
       minutesSelect: 'every minute',
+      secondsSelect: undefined,
     },
     {
       title:
@@ -270,6 +291,7 @@ describe('Cron defaultValue test suite', () => {
       weekDaysSelect: undefined,
       hoursSelect: 'every hour',
       minutesSelect: 'every minute',
+      secondsSelect: undefined,
     },
     {
       title:
@@ -282,6 +304,7 @@ describe('Cron defaultValue test suite', () => {
       weekDaysSelect: undefined,
       hoursSelect: 'every hour',
       minutesSelect: 'every minute',
+      secondsSelect: undefined,
       error: defaultError,
     },
     {
@@ -293,6 +316,7 @@ describe('Cron defaultValue test suite', () => {
       weekDaysSelect: undefined,
       hoursSelect: 'every hour',
       minutesSelect: 'every minute',
+      secondsSelect: undefined,
       error: defaultError,
     },
     {
@@ -304,6 +328,7 @@ describe('Cron defaultValue test suite', () => {
       weekDaysSelect: undefined,
       hoursSelect: 'every hour',
       minutesSelect: 'every minute',
+      secondsSelect: undefined,
       error: defaultError,
     },
     {
@@ -315,6 +340,7 @@ describe('Cron defaultValue test suite', () => {
       weekDaysSelect: 'FRI',
       hoursSelect: '2',
       minutesSelect: '1',
+      secondsSelect: undefined,
     },
     {
       title: 'month days filled set month period',
@@ -325,6 +351,7 @@ describe('Cron defaultValue test suite', () => {
       weekDaysSelect: 'day of the week',
       hoursSelect: 'every hour',
       minutesSelect: 'every minute',
+      secondsSelect: undefined,
     },
     {
       title: 'that a range is allowed when valid',
@@ -335,6 +362,7 @@ describe('Cron defaultValue test suite', () => {
       weekDaysSelect: 'FRI',
       hoursSelect: '2',
       minutesSelect: '1',
+      secondsSelect: undefined,
     },
     {
       title: 'that reboot shortcut is allowed when shortcuts is true',
@@ -346,6 +374,7 @@ describe('Cron defaultValue test suite', () => {
       weekDaysSelect: undefined,
       hoursSelect: undefined,
       minutesSelect: undefined,
+      secondsSelect: undefined,
     },
     {
       title: 'that reboot shortcut is not allowed when shortcuts is false',
@@ -357,6 +386,7 @@ describe('Cron defaultValue test suite', () => {
       weekDaysSelect: undefined,
       hoursSelect: 'every hour',
       minutesSelect: 'every minute',
+      secondsSelect: undefined,
       error: defaultError,
     },
     {
@@ -370,6 +400,7 @@ describe('Cron defaultValue test suite', () => {
       weekDaysSelect: 'day of the week',
       hoursSelect: '0',
       minutesSelect: '0',
+      secondsSelect: undefined,
     },
     {
       title:
@@ -382,6 +413,7 @@ describe('Cron defaultValue test suite', () => {
       weekDaysSelect: undefined,
       hoursSelect: 'every hour',
       minutesSelect: 'every minute',
+      secondsSelect: undefined,
       error: defaultError,
     },
     {
@@ -395,6 +427,7 @@ describe('Cron defaultValue test suite', () => {
       weekDaysSelect: 'day of the week',
       hoursSelect: '0',
       minutesSelect: '0',
+      secondsSelect: undefined,
     },
     {
       title: 'that a wrong shortcut is not allowed',
@@ -406,6 +439,7 @@ describe('Cron defaultValue test suite', () => {
       weekDaysSelect: undefined,
       hoursSelect: 'every hour',
       minutesSelect: 'every minute',
+      secondsSelect: undefined,
       error: defaultError,
     },
     {
@@ -418,6 +452,7 @@ describe('Cron defaultValue test suite', () => {
       weekDaysSelect: 'SUN',
       hoursSelect: 'every hour',
       minutesSelect: 'every minute',
+      secondsSelect: undefined,
     },
     {
       title: 'wrong range with double "/" throw an error',
@@ -428,6 +463,7 @@ describe('Cron defaultValue test suite', () => {
       weekDaysSelect: undefined,
       hoursSelect: 'every hour',
       minutesSelect: 'every minute',
+      secondsSelect: undefined,
       error: defaultError,
     },
     {
@@ -440,6 +476,7 @@ describe('Cron defaultValue test suite', () => {
       weekDaysSelect: undefined,
       hoursSelect: undefined,
       minutesSelect: undefined,
+      secondsSelect: undefined,
     },
     {
       title: 'that an out of range value too low is not allowed',
@@ -450,6 +487,7 @@ describe('Cron defaultValue test suite', () => {
       weekDaysSelect: undefined,
       hoursSelect: 'every hour',
       minutesSelect: 'every minute',
+      secondsSelect: undefined,
       error: defaultError,
     },
     {
@@ -461,6 +499,7 @@ describe('Cron defaultValue test suite', () => {
       weekDaysSelect: undefined,
       hoursSelect: 'every hour',
       minutesSelect: 'every minute',
+      secondsSelect: undefined,
       error: defaultError,
     },
     {
@@ -473,6 +512,7 @@ describe('Cron defaultValue test suite', () => {
       weekDaysSelect: undefined,
       hoursSelect: 'every hour',
       minutesSelect: 'every minute',
+      secondsSelect: undefined,
       error: defaultError,
     },
     {
@@ -485,6 +525,7 @@ describe('Cron defaultValue test suite', () => {
       weekDaysSelect: undefined,
       hoursSelect: 'every hour',
       minutesSelect: 'every minute',
+      secondsSelect: undefined,
       error: defaultError,
     },
     {
@@ -496,6 +537,7 @@ describe('Cron defaultValue test suite', () => {
       weekDaysSelect: undefined,
       hoursSelect: 'every hour',
       minutesSelect: 'every minute',
+      secondsSelect: undefined,
       error: defaultError,
     },
     {
@@ -507,6 +549,7 @@ describe('Cron defaultValue test suite', () => {
       weekDaysSelect: undefined,
       hoursSelect: 'every hour',
       minutesSelect: 'every minute',
+      secondsSelect: undefined,
       error: defaultError,
     },
     {
@@ -518,6 +561,7 @@ describe('Cron defaultValue test suite', () => {
       weekDaysSelect: undefined,
       hoursSelect: 'every hour',
       minutesSelect: 'every minute',
+      secondsSelect: undefined,
       error: defaultError,
     },
     {
@@ -531,6 +575,7 @@ describe('Cron defaultValue test suite', () => {
       weekDaysSelect: undefined,
       hoursSelect: undefined,
       minutesSelect: undefined,
+      secondsSelect: undefined,
     },
     {
       title: 'custom multiple ranges with one interval',
@@ -542,6 +587,7 @@ describe('Cron defaultValue test suite', () => {
       weekDaysSelect: undefined,
       hoursSelect: '2-10,19,21,23',
       minutesSelect: 'every minute',
+      secondsSelect: undefined,
     },
     {
       title: 'custom multiple ranges with two intervals',
@@ -553,6 +599,7 @@ describe('Cron defaultValue test suite', () => {
       weekDaysSelect: undefined,
       hoursSelect: '2,4,6,19,21,23',
       minutesSelect: 'every minute',
+      secondsSelect: undefined,
     },
     {
       title: 'wrong end of value with text throw an error',
@@ -563,6 +610,7 @@ describe('Cron defaultValue test suite', () => {
       weekDaysSelect: undefined,
       hoursSelect: 'every hour',
       minutesSelect: 'every minute',
+      secondsSelect: undefined,
       error: defaultError,
     },
     {
@@ -574,6 +622,7 @@ describe('Cron defaultValue test suite', () => {
       weekDaysSelect: undefined,
       hoursSelect: 'every hour',
       minutesSelect: 'every minute',
+      secondsSelect: undefined,
       error: defaultError,
     },
     {
@@ -585,6 +634,7 @@ describe('Cron defaultValue test suite', () => {
       weekDaysSelect: undefined,
       hoursSelect: 'every hour',
       minutesSelect: 'every minute',
+      secondsSelect: undefined,
       error: defaultError,
     },
     {
@@ -596,6 +646,7 @@ describe('Cron defaultValue test suite', () => {
       weekDaysSelect: undefined,
       hoursSelect: 'every hour',
       minutesSelect: 'every minute',
+      secondsSelect: undefined,
       error: defaultError,
     },
     {
@@ -607,6 +658,7 @@ describe('Cron defaultValue test suite', () => {
       weekDaysSelect: undefined,
       hoursSelect: 'every hour',
       minutesSelect: 'every minute',
+      secondsSelect: undefined,
       error: defaultError,
     },
     {
@@ -618,6 +670,7 @@ describe('Cron defaultValue test suite', () => {
       weekDaysSelect: undefined,
       hoursSelect: 'every hour',
       minutesSelect: 'every minute',
+      secondsSelect: undefined,
       error: defaultError,
     },
     {
@@ -629,6 +682,7 @@ describe('Cron defaultValue test suite', () => {
       weekDaysSelect: undefined,
       hoursSelect: 'every hour',
       minutesSelect: 'every minute',
+      secondsSelect: undefined,
       error: defaultError,
     },
     {
@@ -640,6 +694,7 @@ describe('Cron defaultValue test suite', () => {
       weekDaysSelect: undefined,
       hoursSelect: 'every hour',
       minutesSelect: 'every minute',
+      secondsSelect: undefined,
       error: defaultError,
     },
     {
@@ -651,6 +706,7 @@ describe('Cron defaultValue test suite', () => {
       weekDaysSelect: undefined,
       hoursSelect: 'every hour',
       minutesSelect: 'every minute',
+      secondsSelect: undefined,
       error: defaultError,
     },
     {
@@ -662,6 +718,7 @@ describe('Cron defaultValue test suite', () => {
       weekDaysSelect: undefined,
       hoursSelect: 'every hour',
       minutesSelect: 'every minute',
+      secondsSelect: undefined,
       error: defaultError,
     },
     {
@@ -673,6 +730,7 @@ describe('Cron defaultValue test suite', () => {
       weekDaysSelect: undefined,
       hoursSelect: 'every hour',
       minutesSelect: 'every minute',
+      secondsSelect: undefined,
       error: defaultError,
     },
     {
@@ -684,6 +742,7 @@ describe('Cron defaultValue test suite', () => {
       weekDaysSelect: undefined,
       hoursSelect: 'every hour',
       minutesSelect: 'every minute',
+      secondsSelect: undefined,
       error: defaultError,
     },
     {
@@ -695,6 +754,7 @@ describe('Cron defaultValue test suite', () => {
       weekDaysSelect: undefined,
       hoursSelect: 'every hour',
       minutesSelect: 'every minute',
+      secondsSelect: undefined,
       error: defaultError,
     },
     {
@@ -707,6 +767,7 @@ describe('Cron defaultValue test suite', () => {
       weekDaysSelect: undefined,
       hoursSelect: undefined,
       minutesSelect: '10',
+      secondsSelect: undefined,
     },
   ]
 
@@ -730,6 +791,7 @@ describe('Cron defaultValue test suite', () => {
       weekDaysSelect,
       hoursSelect,
       minutesSelect,
+      secondsSelect,
       error,
     }) => {
       const setValue = jest.fn()
@@ -842,6 +904,15 @@ describe('Cron defaultValue test suite', () => {
         ).toContain(minutesSelect)
       } else {
         expect(screen.queryByTestId(/custom-select-minutes/i)).toBeNull()
+      }
+
+      if (secondsSelect) {
+        expect(screen.queryByTestId('custom-select-seconds')).toBeVisible()
+        expect(
+          screen.getByTestId('custom-select-seconds').textContent
+        ).toContain(minutesSelect)
+      } else {
+        expect(screen.queryByTestId(/custom-select-seconds/i)).toBeNull()
       }
     }
   )

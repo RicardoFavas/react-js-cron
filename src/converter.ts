@@ -28,6 +28,7 @@ export function setValuesFromCronString(
   firstRender: boolean,
   locale: Locale,
   shortcuts: Shortcuts,
+  setSeconds: SetValueNumbersOrUndefined,
   setMinutes: SetValueNumbersOrUndefined,
   setHours: SetValueNumbersOrUndefined,
   setMonthDays: SetValueNumbersOrUndefined,
@@ -79,11 +80,12 @@ export function setValuesFromCronString(
       const period = getPeriodFromCronParts(cronParts)
 
       setPeriod(period)
-      setMinutes(cronParts[0])
-      setHours(cronParts[1])
-      setMonthDays(cronParts[2])
-      setMonths(cronParts[3])
-      setWeekDays(cronParts[4])
+      setSeconds(cronParts[0])
+      setMinutes(cronParts[1])
+      setHours(cronParts[2])
+      setMonthDays(cronParts[3])
+      setMonths(cronParts[4])
+      setWeekDays(cronParts[5])
     } catch (err) {
       // Specific errors are not handle (yet)
       error = true
@@ -106,6 +108,7 @@ export function getCronStringFromValues(
   weekDays: number[] | undefined,
   hours: number[] | undefined,
   minutes: number[] | undefined,
+  seconds: number[] | undefined,
   humanizeValue?: boolean
 ) {
   if (period === 'reboot') {
@@ -119,12 +122,12 @@ export function getCronStringFromValues(
     (period === 'year' || period === 'month' || period === 'week') && weekDays
       ? weekDays
       : []
-  const newHours =
-    period !== 'minute' && period !== 'hour' && hours ? hours : []
-  const newMinutes = period !== 'minute' && minutes ? minutes : []
+  const newHours = period !== 'minute' && period !== 'hour' && hours ? hours : []
+  const newMinutes = period !== 'second' && minutes ? minutes : []
+  const newSeconds = seconds ? seconds : []
 
   const parsedArray = parseCronArray(
-    [newMinutes, newHours, newMonthDays, newMonths, newWeekDays],
+    [newSeconds, newMinutes, newHours, newMonthDays, newMonths, newWeekDays],
     humanizeValue
   )
 
@@ -272,18 +275,20 @@ function cronToString(parts: string[]) {
  * Find the period from cron parts
  */
 function getPeriodFromCronParts(cronParts: number[][]): PeriodType {
-  if (cronParts[3].length > 0) {
+  if (cronParts[4].length > 0) {
     return 'year'
-  } else if (cronParts[2].length > 0) {
+  } else if (cronParts[3].length > 0) {
     return 'month'
-  } else if (cronParts[4].length > 0) {
+  } else if (cronParts[5].length > 0) {
     return 'week'
-  } else if (cronParts[1].length > 0) {
+  } else if (cronParts[2].length > 0) {
     return 'day'
-  } else if (cronParts[0].length > 0) {
+  } else if (cronParts[1].length > 0) {
     return 'hour'
+  } else if (cronParts[1].length > 0) {
+    return 'minute';
   }
-  return 'minute'
+  return 'second';
 }
 
 /**
@@ -296,7 +301,7 @@ function parseCronString(str: string) {
 
   const parts = str.replace(/\s+/g, ' ').trim().split(' ')
 
-  if (parts.length === 5) {
+  if (parts.length === 6) {
     return parts.map((partStr, idx) => {
       return parsePartString(partStr, UNITS[idx])
     })
