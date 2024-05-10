@@ -299,8 +299,8 @@ function getPeriodFromCronParts(cronParts: number[][]): PeriodType {
     return 'day'
   } else if (cronParts[1].length > 0) {
     return 'hour'
-  } else if (cronParts[1].length > 0) {
-    return 'minute';
+  } else if (cronParts[0].length > 0) {
+    return 'hour'
   }
   return 'second';
 }

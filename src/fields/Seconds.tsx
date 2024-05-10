@@ -66,7 +66,6 @@ export default function Seconds(props: SecondsProps) {
         periodicityOnDoubleClick={periodicityOnDoubleClick}
         mode={mode}
       />
-
       {period === 'hour' && locale.suffixSecondsForMinutePeriod !== '' && (
         <span>
           {locale.suffixSecondsForMinutePeriod ||

@@ -146,13 +146,9 @@ export default function Cron(props: CronProps) {
           weekDays,
           hours,
           minutes,
-<<<<<<< HEAD
           seconds,
-          humanizeValue
-=======
           humanizeValue,
           dropdownsConfig
->>>>>>> upstream/master
         )
 
         setValue(cron, { selectedPeriod })
@@ -207,10 +203,8 @@ export default function Cron(props: CronProps) {
           undefined,
           undefined,
           undefined,
-<<<<<<< HEAD
-=======
           undefined,
->>>>>>> upstream/master
+          undefined,
           undefined
         )
 
@@ -294,7 +288,7 @@ export default function Cron(props: CronProps) {
   )
 
   const periodForRender = period || defaultPeriodRef.current
-
+  
   return (
     <div className={internalClassName}>
       {allowedDropdowns.includes('period') && (
@@ -419,7 +413,6 @@ export default function Cron(props: CronProps) {
                   filterOption={dropdownsConfig?.hours?.filterOption}
                 />
               )}
-
             {periodForRender !== 'second' &&
               periodForRender !== 'minute' &&
               allowedDropdowns.includes('minutes') && (
@@ -446,8 +439,6 @@ export default function Cron(props: CronProps) {
                   filterOption={dropdownsConfig?.minutes?.filterOption}
                 />
               )}
-
-
             {periodForRender !== 'second' &&
               allowedDropdowns.includes('seconds') && (
                 <Seconds
@@ -464,8 +455,7 @@ export default function Cron(props: CronProps) {
                   mode={mode}
                 />
               )}
-
-            {clearButtonNode}
+            {clearButtonNode}            
           </div>
         </>
       )}

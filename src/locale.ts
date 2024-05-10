@@ -31,7 +31,7 @@ export const DEFAULT_LOCALE_EN: DefaultLocale = {
   prefixMinutesForHourPeriod: 'at',
   prefixSecondsForMinutePeriod: 'at',
   suffixMinutesForHourPeriod: 'minute(s)',
-  suffixSecondsForMinutePeriod: 'seconds(s)',
+  suffixSecondsForMinutePeriod: 'second(s)',
   errorInvalidCron: 'Invalid cron expression',
   clearButtonText: 'Clear',
   weekDays: [
