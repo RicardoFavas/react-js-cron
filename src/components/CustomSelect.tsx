@@ -23,6 +23,8 @@ export default function CustomSelect(props: CustomSelectProps) {
     unit,
     periodicityOnDoubleClick,
     mode,
+    allowClear,
+    filterOption = () => true,
     ...otherProps
   } = props
 
@@ -35,30 +37,34 @@ export default function CustomSelect(props: CustomSelectProps) {
   const options = useMemo(
     () => {
       if (optionsList) {
-        return optionsList.map((option, index) => {
+        return optionsList
+          .map((option, index) => {
+            const number = unit.min === 0 ? index : index + 1
+
+            return {
+              value: number.toString(),
+              label: option,
+            }
+          })
+          .filter(filterOption)
+      }
+
+      return [...Array(unit.total)]
+        .map((e, index) => {
           const number = unit.min === 0 ? index : index + 1
 
           return {
             value: number.toString(),
-            label: option,
+            label: formatValue(
+              number,
+              unit,
+              humanizeLabels,
+              leadingZero,
+              clockFormat
+            ),
           }
         })
-      }
-
-      return [...Array(unit.total)].map((e, index) => {
-        const number = unit.min === 0 ? index : index + 1
-
-        return {
-          value: number.toString(),
-          label: formatValue(
-            number,
-            unit,
-            humanizeLabels,
-            leadingZero,
-            clockFormat
-          ),
-        }
-      })
+        .filter(filterOption)
     },
     // eslint-disable-next-line react-hooks/exhaustive-deps
     [optionsList, leadingZero, humanizeLabels, clockFormat]
@@ -249,7 +255,7 @@ export default function CustomSelect(props: CustomSelectProps) {
       mode={
         mode === 'single' && !periodicityOnDoubleClick ? undefined : 'multiple'
       }
-      allowClear={!readOnly}
+      allowClear={allowClear ?? !readOnly}
       virtual={false}
       open={readOnly ? false : undefined}
       value={stringValue}
@@ -259,9 +265,9 @@ export default function CustomSelect(props: CustomSelectProps) {
       popupClassName={popupClassName}
       options={options}
       showSearch={false}
-      showArrow={!readOnly}
+      suffixIcon={readOnly ? null : undefined}
       menuItemSelectedIcon={null}
-      dropdownMatchSelectWidth={false}
+      popupMatchSelectWidth={false}
       onSelect={onOptionClick}
       onDeselect={onOptionClick}
       disabled={disabled}

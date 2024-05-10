@@ -4,6 +4,8 @@ import { SUPPORTED_SHORTCUTS, UNITS } from './constants'
 import {
   AllowEmpty,
   ClockFormat,
+  DropdownConfig,
+  DropdownsConfig,
   LeadingZero,
   Locale,
   OnError,
@@ -109,7 +111,8 @@ export function getCronStringFromValues(
   hours: number[] | undefined,
   minutes: number[] | undefined,
   seconds: number[] | undefined,
-  humanizeValue?: boolean
+  humanizeValue: boolean | undefined,
+  dropdownsConfig: DropdownsConfig | undefined
 ) {
   if (period === 'reboot') {
     return '@reboot'
@@ -128,7 +131,8 @@ export function getCronStringFromValues(
 
   const parsedArray = parseCronArray(
     [newSeconds, newMinutes, newHours, newMonthDays, newMonths, newWeekDays],
-    humanizeValue
+    humanizeValue,
+    dropdownsConfig
   )
 
   return cronToString(parsedArray)
@@ -255,12 +259,22 @@ export function parsePartArray(arr: number[], unit: Unit) {
 /**
  * Parses a 2-dimensional array of integers as a cron schedule
  */
-function parseCronArray(cronArr: number[][], humanizeValue?: boolean) {
+function parseCronArray(
+  cronArr: number[][],
+  humanizeValue: boolean | undefined,
+  dropdownsConfig: DropdownsConfig | undefined
+) {
   return cronArr.map((partArr, idx) => {
     const unit = UNITS[idx]
     const parsedArray = parsePartArray(partArr, unit)
+    const dropdownOption: DropdownConfig | undefined =
+      dropdownsConfig?.[unit.type]
 
-    return partToString(parsedArray, unit, humanizeValue)
+    return partToString(
+      parsedArray,
+      unit,
+      dropdownOption?.humanizeValue ?? humanizeValue
+    )
   })
 }
 

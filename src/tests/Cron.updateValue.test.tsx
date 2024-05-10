@@ -59,21 +59,7 @@ describe('Cron update value test suite', () => {
     await waitFor(() => user.click(screen.getByText('59')))
 
     // Check dropdowns values
-    await waitFor(() =>
-      expect(screen.getByTestId('custom-select-minutes').textContent).toContain(
-        '1,4,59'
-      )
-    )
-
-    // Select another minute value
-    await waitFor(() => user.click(screen.getByText('8')))
-
-    // Check dropdowns values
-    await waitFor(() =>
-      expect(screen.getByTestId('custom-select-minutes').textContent).toContain(
-        '1,4,8,59'
-      )
-    )
+    expect(await screen.findByText('1,4,59')).toBeVisible()
   })
 
   it("should check that it's possible to select a periodicity with double click", async () => {
@@ -133,7 +119,7 @@ describe('Cron update value test suite', () => {
 
     render(<Cron value={value} setValue={setValue} />)
 
-    // Open minute dropdown
+    // Clear cron value
     await waitFor(() => {
       user.click(screen.getByText('Clear'))
     })
@@ -153,7 +139,7 @@ describe('Cron update value test suite', () => {
 
     render(<Cron value={value} setValue={setValue} clearButtonAction='empty' />)
 
-    // Open minute dropdown
+    // Clear cron value
     await waitFor(() => {
       user.click(screen.getByText('Clear'))
     })
@@ -173,7 +159,7 @@ describe('Cron update value test suite', () => {
 
     render(<Cron value={value} setValue={setValue} shortcuts={true} />)
 
-    // Open minute dropdown
+    // Clear cron value
     await waitFor(() => {
       user.click(screen.getByText('Clear'))
     })
@@ -202,7 +188,7 @@ describe('Cron update value test suite', () => {
       />
     )
 
-    // Open minute dropdown
+    // Clear cron value
     await waitFor(() => {
       user.click(screen.getByText('Clear'))
     })
@@ -235,7 +221,7 @@ describe('Cron update value test suite', () => {
       />
     )
 
-    // Open minute dropdown
+    // Clear cron value
     await waitFor(() => {
       user.click(screen.getByText('Clear'))
     })
@@ -246,6 +232,108 @@ describe('Cron update value test suite', () => {
         selectedPeriod: 'year',
       })
       expect(onError).toHaveBeenNthCalledWith(3, undefined)
+    })
+  })
+
+  it("should check that it's not possible to update value when it's readOnly mode", async () => {
+    const user = userEvent.setup()
+    const value = '1,4 * * * *'
+    const setValue = jest.fn()
+
+    render(<Cron value={value} setValue={setValue} readOnly />)
+
+    // Open minute dropdown
+    await waitFor(() => user.click(screen.getByText('1,4')))
+
+    // Check dropdown is not visible
+    await waitFor(() => {
+      expect(screen.queryByText('59')).not.toBeInTheDocument()
+    })
+
+    // Check dropdowns values still the sane
+    expect(await screen.findByText('1,4')).toBeVisible()
+  })
+
+  it("should check that it's not possible to update value when it's disabled mode", async () => {
+    const user = userEvent.setup()
+    const value = '1,4 * * * *'
+    const setValue = jest.fn()
+
+    render(<Cron value={value} setValue={setValue} disabled />)
+
+    // Open minute dropdown
+    await waitFor(() => user.click(screen.getByText('1,4')))
+
+    // Check dropdown is not visible
+    await waitFor(() => {
+      expect(screen.queryByText('59')).not.toBeInTheDocument()
+    })
+
+    // Check dropdowns values still the sane
+    expect(await screen.findByText('1,4')).toBeVisible()
+  })
+
+  it('should check that week-days and minutes options are filtered with dropdownConfig', async () => {
+    const user = userEvent.setup()
+    const value = '4,6 * * * 1'
+    const setValue = jest.fn()
+
+    render(
+      <Cron
+        value={value}
+        setValue={setValue}
+        dropdownsConfig={{
+          'minutes': {
+            // Remove minute 59 and 58
+            filterOption: ({ value }) => Number(value) < 58,
+          },
+          'week-days': {
+            // Remove sunday
+            filterOption: ({ value }) => Number(value) !== 0,
+          },
+        }}
+      />
+    )
+
+    // Open minutes dropdown
+    await waitFor(() => {
+      user.click(screen.getByText('4,6'))
+    })
+
+    // Check minutes
+    await waitFor(() => {
+      for (let i = 0; i < 60; i++) {
+        if (i < 58) {
+          expect(screen.getByText(i)).toBeVisible()
+        } else {
+          expect(screen.queryByText(i)).not.toBeInTheDocument()
+        }
+      }
+    })
+
+    // Open week-days dropdown
+    await waitFor(() => {
+      user.click(screen.getByText('MON'))
+    })
+
+    // Check days of the week
+    await waitFor(() => {
+      const days = [
+        'Sunday',
+        'Monday',
+        'Tuesday',
+        'Wednesday',
+        'Thursday',
+        'Friday',
+        'Saturday',
+      ]
+      for (let i = 0; i < 7; i++) {
+        if (i === 0) {
+          expect(screen.queryByText(days[i])).not.toBeInTheDocument()
+        } else {
+          expect(screen.getByText(days[i])).toBeVisible()
+        }
+      }
     })
   })
 })

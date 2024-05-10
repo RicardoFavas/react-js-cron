@@ -6,6 +6,7 @@ import {
   ClockFormat,
   CronError,
   CronType,
+  DropdownsConfig,
   LeadingZero,
   PeriodType,
   Shortcuts,
@@ -37,6 +38,7 @@ describe('Cron defaultValue test suite', () => {
     hoursSelect: string | undefined
     minutesSelect: string | undefined
     secondsSelect: string | undefined
+    dropdownsConfig?: DropdownsConfig
     error?: CronError
   }[] = [
     {
@@ -228,6 +230,48 @@ describe('Cron defaultValue test suite', () => {
       monthDaysSelect: '06,23',
       weekDaysSelect: 'day of the week',
       hoursSelect: '03AM,06PM',
+      minutesSelect: '01',
+      secondsSelect: '01'
+    },
+    {
+      title: 'dropdowns config is allowed',
+      defaultValue: '1 * * * MON-WED,sat',
+      expectedValue: '1 * * * MON-WED,SAT',
+      dropdownsConfig: {
+        'week-days': {
+          humanizeLabels: true,
+          humanizeValue: true,
+        },
+        'minutes': {
+          leadingZero: true,
+        },
+      },
+      periodSelect: 'week',
+      monthsSelect: undefined,
+      monthDaysSelect: undefined,
+      weekDaysSelect: 'MON-WED,SAT',
+      hoursSelect: 'every hour',
+      minutesSelect: '01',
+      secondsSelect: '01',
+    },
+    {
+      title: 'dropdowns config is allowed',
+      defaultValue: '1 * * * MON-WED,sat',
+      expectedValue: '1 * * * MON-WED,SAT',
+      dropdownsConfig: {
+        'week-days': {
+          humanizeLabels: true,
+          humanizeValue: true,
+        },
+        'minutes': {
+          leadingZero: true,
+        },
+      },
+      periodSelect: 'week',
+      monthsSelect: undefined,
+      monthDaysSelect: undefined,
+      weekDaysSelect: 'MON-WED,SAT',
+      hoursSelect: 'every hour',
       minutesSelect: '01',
       secondsSelect: '01',
     },
@@ -792,6 +836,7 @@ describe('Cron defaultValue test suite', () => {
       hoursSelect,
       minutesSelect,
       secondsSelect,
+      dropdownsConfig,
       error,
     }) => {
       const setValue = jest.fn()
@@ -810,6 +855,7 @@ describe('Cron defaultValue test suite', () => {
           clockFormat={clockFormat}
           allowedDropdowns={allowedDropdowns}
           defaultPeriod={defaultPeriod}
+          dropdownsConfig={dropdownsConfig}
         />
       )
 

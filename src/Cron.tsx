@@ -62,6 +62,8 @@ export default function Cron(props: CronProps) {
       'second',
       'reboot',
     ],
+    allowClear,
+    dropdownsConfig,
   } = props
   const internalValueRef = useRef<string>(value)
   const defaultPeriodRef = useRef<PeriodType>(defaultPeriod)
@@ -144,8 +146,13 @@ export default function Cron(props: CronProps) {
           weekDays,
           hours,
           minutes,
+<<<<<<< HEAD
           seconds,
           humanizeValue
+=======
+          humanizeValue,
+          dropdownsConfig
+>>>>>>> upstream/master
         )
 
         setValue(cron, { selectedPeriod })
@@ -168,6 +175,7 @@ export default function Cron(props: CronProps) {
       seconds,
       humanizeValue,
       valueCleared,
+      dropdownsConfig,
     ]
   )
 
@@ -199,6 +207,10 @@ export default function Cron(props: CronProps) {
           undefined,
           undefined,
           undefined,
+<<<<<<< HEAD
+=======
+          undefined,
+>>>>>>> upstream/master
           undefined
         )
 
@@ -291,10 +303,11 @@ export default function Cron(props: CronProps) {
           setValue={setPeriod}
           locale={locale}
           className={className}
-          disabled={disabled}
-          readOnly={readOnly}
+          disabled={dropdownsConfig?.period?.disabled ?? disabled}
+          readOnly={dropdownsConfig?.period?.readOnly ?? readOnly}
           shortcuts={shortcuts}
           allowedPeriods={allowedPeriods}
+          allowClear={dropdownsConfig?.period?.allowClear ?? allowClear}
         />
       )}
 
@@ -309,12 +322,19 @@ export default function Cron(props: CronProps) {
                 setValue={setMonths}
                 locale={locale}
                 className={className}
-                humanizeLabels={humanizeLabels}
-                disabled={disabled}
-                readOnly={readOnly}
+                humanizeLabels={
+                  dropdownsConfig?.months?.humanizeLabels ?? humanizeLabels
+                }
+                disabled={dropdownsConfig?.months?.disabled ?? disabled}
+                readOnly={dropdownsConfig?.months?.readOnly ?? readOnly}
                 period={periodForRender}
-                periodicityOnDoubleClick={periodicityOnDoubleClick}
-                mode={mode}
+                periodicityOnDoubleClick={
+                  dropdownsConfig?.months?.periodicityOnDoubleClick ??
+                  periodicityOnDoubleClick
+                }
+                mode={dropdownsConfig?.months?.mode ?? mode}
+                allowClear={dropdownsConfig?.months?.allowClear ?? allowClear}
+                filterOption={dropdownsConfig?.months?.filterOption}
               />
             )}
 
@@ -326,12 +346,21 @@ export default function Cron(props: CronProps) {
                 locale={locale}
                 className={className}
                 weekDays={weekDays}
-                disabled={disabled}
-                readOnly={readOnly}
-                leadingZero={leadingZero}
+                disabled={dropdownsConfig?.['month-days']?.disabled ?? disabled}
+                readOnly={dropdownsConfig?.['month-days']?.readOnly ?? readOnly}
+                leadingZero={
+                  dropdownsConfig?.['month-days']?.leadingZero ?? leadingZero
+                }
                 period={periodForRender}
-                periodicityOnDoubleClick={periodicityOnDoubleClick}
-                mode={mode}
+                periodicityOnDoubleClick={
+                  dropdownsConfig?.['month-days']?.periodicityOnDoubleClick ??
+                  periodicityOnDoubleClick
+                }
+                mode={dropdownsConfig?.['month-days']?.mode ?? mode}
+                allowClear={
+                  dropdownsConfig?.['month-days']?.allowClear ?? allowClear
+                }
+                filterOption={dropdownsConfig?.['month-days']?.filterOption}
               />
             )}
 
@@ -344,13 +373,23 @@ export default function Cron(props: CronProps) {
                 setValue={setWeekDays}
                 locale={locale}
                 className={className}
-                humanizeLabels={humanizeLabels}
+                humanizeLabels={
+                  dropdownsConfig?.['week-days']?.humanizeLabels ??
+                  humanizeLabels
+                }
                 monthDays={monthDays}
-                disabled={disabled}
-                readOnly={readOnly}
+                disabled={dropdownsConfig?.['week-days']?.disabled ?? disabled}
+                readOnly={dropdownsConfig?.['week-days']?.readOnly ?? readOnly}
                 period={periodForRender}
-                periodicityOnDoubleClick={periodicityOnDoubleClick}
-                mode={mode}
+                periodicityOnDoubleClick={
+                  dropdownsConfig?.['week-days']?.periodicityOnDoubleClick ??
+                  periodicityOnDoubleClick
+                }
+                mode={dropdownsConfig?.['week-days']?.mode ?? mode}
+                allowClear={
+                  dropdownsConfig?.['week-days']?.allowClear ?? allowClear
+                }
+                filterOption={dropdownsConfig?.['week-days']?.filterOption}
               />
             )}
 
@@ -364,13 +403,20 @@ export default function Cron(props: CronProps) {
                   setValue={setHours}
                   locale={locale}
                   className={className}
-                  disabled={disabled}
-                  readOnly={readOnly}
-                  leadingZero={leadingZero}
+                  disabled={dropdownsConfig?.hours?.disabled ?? disabled}
+                  readOnly={dropdownsConfig?.hours?.readOnly ?? readOnly}
+                  leadingZero={
+                    dropdownsConfig?.hours?.leadingZero ?? leadingZero
+                  }
                   clockFormat={clockFormat}
                   period={periodForRender}
-                  periodicityOnDoubleClick={periodicityOnDoubleClick}
-                  mode={mode}
+                  periodicityOnDoubleClick={
+                    dropdownsConfig?.hours?.periodicityOnDoubleClick ??
+                    periodicityOnDoubleClick
+                  }
+                  mode={dropdownsConfig?.hours?.mode ?? mode}
+                  allowClear={dropdownsConfig?.hours?.allowClear ?? allowClear}
+                  filterOption={dropdownsConfig?.hours?.filterOption}
                 />
               )}
 
@@ -383,12 +429,21 @@ export default function Cron(props: CronProps) {
                   locale={locale}
                   period={periodForRender}
                   className={className}
-                  disabled={disabled}
-                  readOnly={readOnly}
-                  leadingZero={leadingZero}
+                  disabled={dropdownsConfig?.minutes?.disabled ?? disabled}
+                  readOnly={dropdownsConfig?.minutes?.readOnly ?? readOnly}
+                  leadingZero={
+                    dropdownsConfig?.minutes?.leadingZero ?? leadingZero
+                  }
                   clockFormat={clockFormat}
-                  periodicityOnDoubleClick={periodicityOnDoubleClick}
-                  mode={mode}
+                  periodicityOnDoubleClick={
+                    dropdownsConfig?.minutes?.periodicityOnDoubleClick ??
+                    periodicityOnDoubleClick
+                  }
+                  mode={dropdownsConfig?.minutes?.mode ?? mode}
+                  allowClear={
+                    dropdownsConfig?.minutes?.allowClear ?? allowClear
+                  }
+                  filterOption={dropdownsConfig?.minutes?.filterOption}
                 />
               )}
 
