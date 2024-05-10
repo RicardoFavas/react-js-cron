@@ -32,7 +32,7 @@ export default {
 }
 
 export function Demo() {
-  const defaultValue = '0 30 5 * * 1,6'
+  const defaultValue = '*/5 * * * * *'
   const [values, dispatchValues] = useCronReducer(defaultValue)
   const [error, onError] = useState<CronError>()
 

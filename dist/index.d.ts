@@ -12,6 +12,7 @@ interface CronProps {
     defaultPeriod?: PeriodType;
     disabled?: boolean;
     readOnly?: boolean;
+    allowClear?: boolean;
     allowEmpty?: AllowEmpty;
     shortcuts?: Shortcuts;
     clockFormat?: ClockFormat;
@@ -24,6 +25,7 @@ interface CronProps {
     mode?: Mode;
     allowedDropdowns?: CronType[];
     allowedPeriods?: PeriodType[];
+    dropdownsConfig?: DropdownsConfig;
     locale?: Locale;
 }
 interface Locale {
@@ -88,6 +90,25 @@ type ClockFormat = '24-hour-clock' | '12-hour-clock';
 type ShortcutsType = '@yearly' | '@annually' | '@monthly' | '@weekly' | '@daily' | '@midnight' | '@hourly' | '@reboot';
 type Shortcuts = boolean | ShortcutsType[];
 type Mode = 'multiple' | 'single';
+type DropdownConfig = {
+    humanizeLabels?: boolean;
+    humanizeValue?: boolean;
+    leadingZero?: boolean;
+    disabled?: boolean;
+    readOnly?: boolean;
+    allowClear?: boolean;
+    periodicityOnDoubleClick?: boolean;
+    mode?: Mode;
+    filterOption?: FilterOption;
+};
+type DropdownsConfig = {
+    'period'?: Pick<DropdownConfig, 'disabled' | 'readOnly' | 'allowClear'>;
+    'months'?: Omit<DropdownConfig, 'leadingZero'>;
+    'month-days'?: Omit<DropdownConfig, 'humanizeLabels' | 'humanizeValue'>;
+    'week-days'?: Omit<DropdownConfig, 'leadingZero'>;
+    'hours'?: Omit<DropdownConfig, 'humanizeLabels' | 'humanizeValue'>;
+    'minutes'?: Omit<DropdownConfig, 'humanizeLabels' | 'humanizeValue'>;
+};
 interface FieldProps {
     value?: number[];
     setValue: SetValueNumbersOrUndefined;
@@ -98,8 +119,10 @@ interface FieldProps {
     period: PeriodType;
     periodicityOnDoubleClick: boolean;
     mode: Mode;
+    allowClear?: boolean;
+    filterOption?: FilterOption;
 }
-interface PeriodProps extends Omit<FieldProps, 'value' | 'setValue' | 'period' | 'periodicityOnDoubleClick' | 'mode'> {
+interface PeriodProps extends Omit<FieldProps, 'value' | 'setValue' | 'period' | 'periodicityOnDoubleClick' | 'mode' | 'filterOption'> {
     value: PeriodType;
     setValue: SetValuePeriod;
     shortcuts: Shortcuts;
@@ -128,7 +151,7 @@ interface SecondsProps extends FieldProps {
     leadingZero: LeadingZero;
     clockFormat?: ClockFormat;
 }
-interface CustomSelectProps extends Omit<SelectProps<any>, 'mode' | 'tokenSeparators' | 'allowClear' | 'virtual' | 'onClick' | 'onBlur' | 'tagRender' | 'dropdownRender' | 'showSearch' | 'showArrow' | 'onChange' | 'dropdownMatchSelectWidth' | 'options' | 'onSelect' | 'onDeselect'> {
+interface CustomSelectProps extends Omit<SelectProps<any>, 'mode' | 'tokenSeparators' | 'virtual' | 'onClick' | 'onBlur' | 'tagRender' | 'dropdownRender' | 'showSearch' | 'suffixIcon' | 'onChange' | 'dropdownMatchSelectWidth' | 'options' | 'onSelect' | 'onDeselect' | 'filterOption'> {
     grid?: boolean;
     setValue: SetValueNumbersOrUndefined;
     optionsList?: string[];
@@ -143,6 +166,7 @@ interface CustomSelectProps extends Omit<SelectProps<any>, 'mode' | 'tokenSepara
     unit: Unit;
     periodicityOnDoubleClick: boolean;
     mode: Mode;
+    filterOption?: FilterOption;
 }
 type SetValueNumbersOrUndefined = Dispatch<SetStateAction<number[] | undefined>>;
 type SetValuePeriod = Dispatch<SetStateAction<PeriodType>>;
@@ -204,11 +228,15 @@ interface Clicks {
     time: number;
     value: number;
 }
+type FilterOption = ({ value, label, }: {
+    value: string;
+    label: string;
+}) => boolean;
 
 declare function Cron(props: CronProps): JSX.Element;
 
 declare function setValuesFromCronString(cronString: string, setInternalError: SetInternalError, onError: OnError, allowEmpty: AllowEmpty, internalValueRef: MutableRefObject<string>, firstRender: boolean, locale: Locale, shortcuts: Shortcuts, setSeconds: SetValueNumbersOrUndefined, setMinutes: SetValueNumbersOrUndefined, setHours: SetValueNumbersOrUndefined, setMonthDays: SetValueNumbersOrUndefined, setMonths: SetValueNumbersOrUndefined, setWeekDays: SetValueNumbersOrUndefined, setPeriod: SetValuePeriod): void;
-declare function getCronStringFromValues(period: PeriodType, months: number[] | undefined, monthDays: number[] | undefined, weekDays: number[] | undefined, hours: number[] | undefined, minutes: number[] | undefined, seconds: number[] | undefined, humanizeValue?: boolean): string;
+declare function getCronStringFromValues(period: PeriodType, months: number[] | undefined, monthDays: number[] | undefined, weekDays: number[] | undefined, hours: number[] | undefined, minutes: number[] | undefined, seconds: number[] | undefined, humanizeValue: boolean | undefined, dropdownsConfig: DropdownsConfig | undefined): string;
 declare function partToString(cronPart: number[], unit: Unit, humanize?: boolean, leadingZero?: LeadingZero, clockFormat?: ClockFormat): string;
 declare function formatValue(value: number, unit: Unit, humanize?: boolean, leadingZero?: LeadingZero, clockFormat?: ClockFormat): string;
 declare function parsePartArray(arr: number[], unit: Unit): number[];
@@ -228,4 +256,4 @@ declare namespace converter_d {
   };
 }
 
-export { AllowEmpty, Classes, ClearButtonAction, ClearButtonProps, Clicks, ClockFormat, Cron, CronError, CronProps, CronType, CustomSelectProps, DefaultLocale, FieldProps, HoursProps, LeadingZero, LeadingZeroType, Locale, MinutesProps, Mode, MonthDaysProps, MonthsProps, OnError, OnErrorFunction, PeriodProps, PeriodType, SecondsProps, SetInternalError, SetValue, SetValueFunction, SetValueFunctionExtra, SetValueNumbersOrUndefined, SetValuePeriod, Shortcuts, ShortcutsType, ShortcutsValues, Unit, WeekDaysProps, converter_d as converter, Cron as default };
+export { AllowEmpty, Classes, ClearButtonAction, ClearButtonProps, Clicks, ClockFormat, Cron, CronError, CronProps, CronType, CustomSelectProps, DefaultLocale, DropdownConfig, DropdownsConfig, FieldProps, FilterOption, HoursProps, LeadingZero, LeadingZeroType, Locale, MinutesProps, Mode, MonthDaysProps, MonthsProps, OnError, OnErrorFunction, PeriodProps, PeriodType, SecondsProps, SetInternalError, SetValue, SetValueFunction, SetValueFunctionExtra, SetValueNumbersOrUndefined, SetValuePeriod, Shortcuts, ShortcutsType, ShortcutsValues, Unit, WeekDaysProps, converter_d as converter, Cron as default };

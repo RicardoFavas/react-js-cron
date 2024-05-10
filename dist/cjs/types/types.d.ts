@@ -10,6 +10,7 @@ export interface CronProps {
     defaultPeriod?: PeriodType;
     disabled?: boolean;
     readOnly?: boolean;
+    allowClear?: boolean;
     allowEmpty?: AllowEmpty;
     shortcuts?: Shortcuts;
     clockFormat?: ClockFormat;
@@ -22,6 +23,7 @@ export interface CronProps {
     mode?: Mode;
     allowedDropdowns?: CronType[];
     allowedPeriods?: PeriodType[];
+    dropdownsConfig?: DropdownsConfig;
     locale?: Locale;
 }
 export interface Locale {
@@ -86,6 +88,25 @@ export type ClockFormat = '24-hour-clock' | '12-hour-clock';
 export type ShortcutsType = '@yearly' | '@annually' | '@monthly' | '@weekly' | '@daily' | '@midnight' | '@hourly' | '@reboot';
 export type Shortcuts = boolean | ShortcutsType[];
 export type Mode = 'multiple' | 'single';
+export type DropdownConfig = {
+    humanizeLabels?: boolean;
+    humanizeValue?: boolean;
+    leadingZero?: boolean;
+    disabled?: boolean;
+    readOnly?: boolean;
+    allowClear?: boolean;
+    periodicityOnDoubleClick?: boolean;
+    mode?: Mode;
+    filterOption?: FilterOption;
+};
+export type DropdownsConfig = {
+    'period'?: Pick<DropdownConfig, 'disabled' | 'readOnly' | 'allowClear'>;
+    'months'?: Omit<DropdownConfig, 'leadingZero'>;
+    'month-days'?: Omit<DropdownConfig, 'humanizeLabels' | 'humanizeValue'>;
+    'week-days'?: Omit<DropdownConfig, 'leadingZero'>;
+    'hours'?: Omit<DropdownConfig, 'humanizeLabels' | 'humanizeValue'>;
+    'minutes'?: Omit<DropdownConfig, 'humanizeLabels' | 'humanizeValue'>;
+};
 export interface FieldProps {
     value?: number[];
     setValue: SetValueNumbersOrUndefined;
@@ -96,8 +117,10 @@ export interface FieldProps {
     period: PeriodType;
     periodicityOnDoubleClick: boolean;
     mode: Mode;
+    allowClear?: boolean;
+    filterOption?: FilterOption;
 }
-export interface PeriodProps extends Omit<FieldProps, 'value' | 'setValue' | 'period' | 'periodicityOnDoubleClick' | 'mode'> {
+export interface PeriodProps extends Omit<FieldProps, 'value' | 'setValue' | 'period' | 'periodicityOnDoubleClick' | 'mode' | 'filterOption'> {
     value: PeriodType;
     setValue: SetValuePeriod;
     shortcuts: Shortcuts;
@@ -126,7 +149,7 @@ export interface SecondsProps extends FieldProps {
     leadingZero: LeadingZero;
     clockFormat?: ClockFormat;
 }
-export interface CustomSelectProps extends Omit<SelectProps<any>, 'mode' | 'tokenSeparators' | 'allowClear' | 'virtual' | 'onClick' | 'onBlur' | 'tagRender' | 'dropdownRender' | 'showSearch' | 'showArrow' | 'onChange' | 'dropdownMatchSelectWidth' | 'options' | 'onSelect' | 'onDeselect'> {
+export interface CustomSelectProps extends Omit<SelectProps<any>, 'mode' | 'tokenSeparators' | 'virtual' | 'onClick' | 'onBlur' | 'tagRender' | 'dropdownRender' | 'showSearch' | 'suffixIcon' | 'onChange' | 'dropdownMatchSelectWidth' | 'options' | 'onSelect' | 'onDeselect' | 'filterOption'> {
     grid?: boolean;
     setValue: SetValueNumbersOrUndefined;
     optionsList?: string[];
@@ -141,6 +164,7 @@ export interface CustomSelectProps extends Omit<SelectProps<any>, 'mode' | 'toke
     unit: Unit;
     periodicityOnDoubleClick: boolean;
     mode: Mode;
+    filterOption?: FilterOption;
 }
 export type SetValueNumbersOrUndefined = Dispatch<SetStateAction<number[] | undefined>>;
 export type SetValuePeriod = Dispatch<SetStateAction<PeriodType>>;
@@ -202,3 +226,7 @@ export interface Clicks {
     time: number;
     value: number;
 }
+export type FilterOption = ({ value, label, }: {
+    value: string;
+    label: string;
+}) => boolean;
