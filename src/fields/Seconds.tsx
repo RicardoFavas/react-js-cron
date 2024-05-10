@@ -48,7 +48,7 @@ export default function Seconds(props: SecondsProps) {
 
       <CustomSelect
         placeholder={
-          period === 'minute'
+          period === 'hour'
             ? locale.emptySecondsForMinutePeriod ||
               DEFAULT_LOCALE_EN.emptySecondsForMinutePeriod
             : locale.emptySeconds || DEFAULT_LOCALE_EN.emptySeconds
@@ -67,7 +67,7 @@ export default function Seconds(props: SecondsProps) {
         mode={mode}
       />
 
-      {period === 'minute' && locale.suffixSecondsForMinutePeriod !== '' && (
+      {period === 'hour' && locale.suffixSecondsForMinutePeriod !== '' && (
         <span>
           {locale.suffixSecondsForMinutePeriod ||
             DEFAULT_LOCALE_EN.suffixSecondsForMinutePeriod}
