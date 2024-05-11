@@ -38,11 +38,10 @@ export default function Hours(props: HoursProps) {
       {locale.prefixHours !== '' && (
         <span>{locale.prefixHours || DEFAULT_LOCALE_EN.prefixHours}</span>
       )}
-
       <CustomSelect
         placeholder={locale.emptyHours || DEFAULT_LOCALE_EN.emptyHours}
         value={value}
-        unit={UNITS[0]}
+        unit={UNITS[2]}
         setValue={setValue}
         locale={locale}
         className={className}
